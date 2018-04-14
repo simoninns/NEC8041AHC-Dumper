@@ -163,8 +163,6 @@ Wire Wire Line
 Wire Wire Line
 	6600 4550 6100 4550
 Wire Wire Line
-	6600 4350 6100 4350
-Wire Wire Line
 	8100 4550 9750 4550
 Wire Wire Line
 	8100 4650 8850 4650
@@ -238,8 +236,6 @@ NoConn ~ 8100 3650
 NoConn ~ 6600 4650
 Text GLabel 6100 2350 0    60   Input ~ 0
 ~RESET
-Text GLabel 6100 4350 0    60   Input ~ 0
-PROG
 Text GLabel 6100 4550 0    60   Input ~ 0
 TEST0
 $Comp
@@ -344,8 +340,6 @@ Text GLabel 2650 3850 0    60   Input ~ 0
 AD1
 Text GLabel 2900 3950 0    60   Input ~ 0
 AD2
-Text GLabel 2650 4050 0    60   Input ~ 0
-PROG
 Text GLabel 4350 3350 2    60   Input ~ 0
 TEST0
 Wire Wire Line
@@ -370,8 +364,6 @@ Wire Wire Line
 	2650 3850 3100 3850
 Wire Wire Line
 	2900 3950 3100 3950
-Wire Wire Line
-	2650 4050 3100 4050
 Wire Wire Line
 	4350 3350 4100 3350
 Text GLabel 4700 3450 2    60   Input ~ 0
@@ -440,18 +432,14 @@ Wire Wire Line
 $Comp
 L VPP #PWR8
 U 1 1 5AD1F6B5
-P 8750 2150
-F 0 "#PWR8" H 8750 2000 50  0001 C CNN
-F 1 "VPP" H 8750 2300 50  0000 C CNN
-F 2 "" H 8750 2150 50  0001 C CNN
-F 3 "" H 8750 2150 50  0001 C CNN
-	1    8750 2150
+P 8900 2150
+F 0 "#PWR8" H 8900 2000 50  0001 C CNN
+F 1 "VPP" H 8900 2300 50  0000 C CNN
+F 2 "" H 8900 2150 50  0001 C CNN
+F 3 "" H 8900 2150 50  0001 C CNN
+	1    8900 2150
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	8100 2550 8750 2550
-Wire Wire Line
-	8750 2550 8750 2150
 $Comp
 L LM350_TO220 U2
 U 1 1 5AD1F745
@@ -570,4 +558,23 @@ Wire Wire Line
 	4250 6950 4250 6600
 Text Notes 4050 5850 0    60   ~ 0
 Vpp = 6.944V
+NoConn ~ 6600 4350
+NoConn ~ 3100 4050
+$Comp
+L R R?
+U 1 1 5AD241C7
+P 8550 2550
+F 0 "R?" V 8630 2550 50  0000 C CNN
+F 1 "10K" V 8550 2550 50  0000 C CNN
+F 2 "" V 8480 2550 50  0001 C CNN
+F 3 "" H 8550 2550 50  0001 C CNN
+	1    8550 2550
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	8100 2550 8400 2550
+Wire Wire Line
+	8700 2550 8900 2550
+Wire Wire Line
+	8900 2550 8900 2150
 $EndSCHEMATC

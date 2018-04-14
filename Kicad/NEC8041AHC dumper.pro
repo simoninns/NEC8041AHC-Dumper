@@ -1,4 +1,4 @@
-update=14/04/2018 12:54:54
+update=14/04/2018 19:57:37
 version=1
 last_client=kicad
 [pcbnew]
@@ -162,7 +162,7 @@ LibName130=C:/Program Files/KiCad/share/kicad/library/Zilog
 [schematic_editor]
 version=1
 PageLayoutDescrFile=
-PlotDirectoryName=./
+PlotDirectoryName=PDF/
 SubpartIdSeparator=0
 SubpartFirstId=65
 NetFmtName=
