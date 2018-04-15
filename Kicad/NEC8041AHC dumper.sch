@@ -157,28 +157,19 @@ Wire Wire Line
 	6350 1700 8250 1700
 Connection ~ 7350 1700
 Wire Wire Line
-	8250 4350 8100 4350
-Wire Wire Line
-	8250 1700 8250 4350
-Wire Wire Line
 	6600 4550 6100 4550
 Wire Wire Line
 	8100 4550 9750 4550
 Wire Wire Line
 	8100 4650 8850 4650
 Wire Wire Line
-	8100 3850 8350 3850
-Wire Wire Line
-	8350 3850 8350 5100
-Wire Wire Line
-	8350 5100 7350 5100
+	7350 5100 8400 5100
 Wire Wire Line
 	7350 5000 7350 5850
 Connection ~ 7350 5100
 Wire Wire Line
 	8100 2350 8250 2350
 Connection ~ 8250 2350
-NoConn ~ 8100 4250
 NoConn ~ 8100 4050
 NoConn ~ 8100 3950
 $Comp
@@ -293,14 +284,10 @@ Text GLabel 6350 3450 0    60   Input ~ 0
 AD0
 Text GLabel 6100 3550 0    60   Input ~ 0
 AD1
-Text GLabel 6350 3650 0    60   Input ~ 0
-AD2
 Wire Wire Line
 	6350 3450 6600 3450
 Wire Wire Line
 	6100 3550 6600 3550
-Wire Wire Line
-	6350 3650 6600 3650
 Wire Wire Line
 	8100 2750 8450 2750
 Wire Wire Line
@@ -338,8 +325,6 @@ Text GLabel 2900 3750 0    60   Input ~ 0
 AD0
 Text GLabel 2650 3850 0    60   Input ~ 0
 AD1
-Text GLabel 2900 3950 0    60   Input ~ 0
-AD2
 Text GLabel 4350 3350 2    60   Input ~ 0
 TEST0
 Wire Wire Line
@@ -362,8 +347,6 @@ Wire Wire Line
 	2900 3750 3100 3750
 Wire Wire Line
 	2650 3850 3100 3850
-Wire Wire Line
-	2900 3950 3100 3950
 Wire Wire Line
 	4350 3350 4100 3350
 Text GLabel 4700 3450 2    60   Input ~ 0
@@ -523,7 +506,7 @@ F 3 "" H 3800 7000 50  0001 C CNN
 	1    0    0    -1  
 $EndComp
 Wire Wire Line
-	3800 7000 3800 6900
+	3800 6900 3800 7000
 $Comp
 L C C3
 U 1 1 5AD1FB9E
@@ -577,4 +560,19 @@ Wire Wire Line
 	8700 2550 8900 2550
 Wire Wire Line
 	8900 2550 8900 2150
+Wire Wire Line
+	8250 1700 8250 4250
+Wire Wire Line
+	8250 4250 8100 4250
+Text Notes 8950 2550 0    60   ~ 0
+Connected to GND in VP410
+Wire Wire Line
+	8100 4350 8400 4350
+NoConn ~ 6600 3650
+NoConn ~ 3100 3950
+Wire Wire Line
+	8100 3850 8400 3850
+Wire Wire Line
+	8400 3850 8400 5100
+Connection ~ 8400 4350
 $EndSCHEMATC

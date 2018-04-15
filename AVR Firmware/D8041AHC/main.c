@@ -117,13 +117,19 @@ int16_t main(void)
 	// Output some title text
 	printf("Domesday86.com: D8041AHC Internal ROM Dumping utility\r\n");
 	
-	//while(1) { // Test loop
+	while(1) { // Test loop
 		
 	// Set the initial ROM address (10-bit value)
 	uint16_t romAddress = 0x00;
 	
-	// Pretty print the columns
+	// Keep track of the number of bytes presented in the data field
 	uint16_t columnCount = 0;
+	
+	// Keep track of the data values for the checksum
+	uint16_t dataTotal = 0; // Maximum value of 16*256 = 4,096
+	
+	// Data byte value read from chip
+	uint16_t dataByte = 0;
 	
 	// Main program loop (0x400 = 1024 = 1K ROM)
     while (romAddress < 0x400) {
@@ -150,12 +156,26 @@ int16_t main(void)
 		
 		AD2_PORT &= ~AD2; // Unused, always zero
 		
-		if (columnCount == 0) printf("\r\n0x%03x: ", romAddress);
+		// Is this byte the start of the data field?
+		if (columnCount == 0) {
+			// Output the Intel HEX header for this line
+			printf(":"); // Intel HEX start code
+			printf("10"); // Intel HEX byte count (0x10 = d16)
+			printf("%04X", romAddress); // Intel HEX 16-bit address of data field start location
+			printf("00"); // Intel HEX record type (00 = data)
+			
+			// Reset the data total for the checksum
+			dataTotal = 0;
+		}
 		
 		// Step 6: NRESET = 5V (latch address)
 		NRESET_PORT |= NRESET;
-		_delay_ms(60);
+		_delay_ms(CMD_DELAY);
+		_delay_ms(CMD_DELAY);
+		_delay_ms(CMD_DELAY);
+		_delay_ms(CMD_DELAY);
 		setDataDirection(INPUT);
+		_delay_ms(CMD_DELAY);
 		
 		// Step 7: Data applied to BUS
 		// Skip this step
@@ -172,12 +192,15 @@ int16_t main(void)
 		
 		// Step 11: TEST0 = 5V (verify mode)
 		TEST0_PORT |= TEST0;
-		_delay_ms(60);
+		_delay_ms(CMD_DELAY);
+		_delay_ms(CMD_DELAY);
+		_delay_ms(CMD_DELAY);
+		_delay_ms(CMD_DELAY);
 		
 		// Step 12: Read and verify data on BUS
 		
 		// Read the byte on the databus
-		uint16_t dataByte = 0;
+		dataByte = 0;
 		if ((D0_PIN & D0) != 0) dataByte += 0b00000001;
 		if ((D1_PIN & D1) != 0) dataByte += 0b00000010;
 		if ((D2_PIN & D2) != 0) dataByte += 0b00000100;
@@ -187,7 +210,10 @@ int16_t main(void)
 		if ((D6_PIN & D6) != 0) dataByte += 0b01000000;
 		if ((D7_PIN & D7) != 0) dataByte += 0b10000000;
 		
-		printf("0x%02x ", dataByte);
+		printf("%02X", dataByte);
+		
+		// Add the byte to the checksum total
+		dataTotal += dataByte;
 		
 		// Step 13: TEST0 = 0V
 		TEST0_PORT &= ~TEST0;
@@ -202,11 +228,25 @@ int16_t main(void)
 		
 		// Pretty print
 		columnCount++;
-		if (columnCount == 16) columnCount = 0;
+		
+		// Is this byte the end of the data field?
+		if (columnCount == 16) {
+			// Output the checksum for the previous line
+			dataTotal = dataTotal & 0xFF; // Truncate
+			dataTotal = ~dataTotal; // Invert
+			dataTotal++; // +1 = two's complement.
+			dataTotal = dataTotal & 0xFF; // Truncate
+					
+			printf("%02X\r\n", dataTotal);
+			
+			// Next line
+			columnCount = 0;
+		}
     }
 	
-	printf("\r\n\r\nDump complete; reset Arduino to repeat\r\n");
-	//} // Test loop
+	// Output the end of data Intel HEX field
+	printf(":00000001FF\r\n\r\n");
+	} // Test loop
 	
 	// Done... loop away
 	while(1);
