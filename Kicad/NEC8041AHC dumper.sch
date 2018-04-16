@@ -154,7 +154,7 @@ Wire Wire Line
 Wire Wire Line
 	6350 1800 6350 1700
 Wire Wire Line
-	6350 1700 8250 1700
+	5400 1700 8250 1700
 Connection ~ 7350 1700
 Wire Wire Line
 	6600 4550 6100 4550
@@ -224,7 +224,6 @@ Wire Wire Line
 Connection ~ 7350 5650
 Connection ~ 8850 5650
 NoConn ~ 8100 3650
-NoConn ~ 6600 4650
 Text GLabel 6100 2350 0    60   Input ~ 0
 ~RESET
 Text GLabel 6100 4550 0    60   Input ~ 0
@@ -561,18 +560,25 @@ Wire Wire Line
 Wire Wire Line
 	8900 2550 8900 2150
 Wire Wire Line
-	8250 1700 8250 4250
+	8250 1700 8250 4350
 Wire Wire Line
 	8250 4250 8100 4250
 Text Notes 8950 2550 0    60   ~ 0
 Connected to GND in VP410
-Wire Wire Line
-	8100 4350 8400 4350
 NoConn ~ 6600 3650
 NoConn ~ 3100 3950
 Wire Wire Line
 	8100 3850 8400 3850
 Wire Wire Line
 	8400 3850 8400 5100
-Connection ~ 8400 4350
+Wire Wire Line
+	8250 4350 8100 4350
+Connection ~ 8250 4250
+Wire Wire Line
+	6600 4650 5400 4650
+Wire Wire Line
+	5400 4650 5400 1700
+Connection ~ 6350 1700
+Text Notes 8500 1650 0    60   ~ 0
+Note: EA must be at 5V for init and then raise to 9V\nfor reading... need to add hardware to control the\nsignal level from the AVR
 $EndSCHEMATC
