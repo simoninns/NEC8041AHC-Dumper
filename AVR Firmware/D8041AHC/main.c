@@ -169,14 +169,20 @@ int16_t main(void)
     while (romAddress < 0x400) {
 		// Is this byte the start of the data field?
 		if (columnCount == 0) {
+			// Reset the data total for the checksum
+			dataTotal = 0;
+			
 			// Output the Intel HEX header for this line
 			printf(":"); // Intel HEX start code
 			printf("10"); // Intel HEX byte count (0x10 = d16)
-			printf("%04X", romAddress); // Intel HEX 16-bit address of data field start location
-			printf("00"); // Intel HEX record type (00 = data)
+			dataTotal += 0x10;
 			
-			// Reset the data total for the checksum
-			dataTotal = 0;
+			printf("%04X", romAddress); // Intel HEX 16-bit address of data field start location
+			dataTotal += (romAddress & 0xFF00) >> 8;
+			dataTotal += (romAddress & 0x00FF);
+			
+			printf("00"); // Intel HEX record type (00 = data)
+			dataTotal += 0x00;
 		}
 		
 		// Place required address on D0-D7 and P2.0 and P2.1 (10-bit address)
