@@ -36,7 +36,7 @@
 #define OUTPUT 1
 
 // Command delay in uS
-#define CMD_DELAY 50
+#define CMD_DELAY 200
 
 void setDataDirection(uint8_t direction)
 {
@@ -153,8 +153,8 @@ int16_t main(void)
 	// P1.1 (pin 28) = 0V
 	// P1.2 (pin 29) = 0V
 	
-	// Wait 10mS
-	_delay_ms(10);
+	// Wait 20mS
+	_delay_ms(20);
 	
 	// TEST0 (pin 1) = 0V
 	TEST0_PORT &= ~TEST0;
@@ -200,13 +200,13 @@ int16_t main(void)
 		if (romAddress & 0b0100000000) AD0_PORT |= AD0; else AD0_PORT &= ~AD0;
 		if (romAddress & 0b1000000000) AD1_PORT |= AD1; else AD1_PORT &= ~AD1;
 		
-		// Wait 50uS
+		// Wait
 		_delay_us(CMD_DELAY);
 		
 		// !RESET (pin 4) = 5V - latch address
 		NRESET_PORT |= NRESET;
 		
-		// Wait 50uS
+		// Wait
 		_delay_us(CMD_DELAY);
 		
 		// HighZ the address pins
@@ -215,7 +215,7 @@ int16_t main(void)
 		// TEST0 (pin 1) = 5V
 		TEST0_PORT |= TEST0;
 		
-		// Wait 50uS
+		// Wait
 		_delay_us(CMD_DELAY);
 		
 		// Read D0-D7
@@ -237,13 +237,13 @@ int16_t main(void)
 		// TEST0 (pin 1) = 0V
 		TEST0_PORT &= ~TEST0;
 		
-		// Wait 50uS
+		// Wait
 		_delay_us(CMD_DELAY);
 		
 		// !RESET (pin 4) = 0V
 		NRESET_PORT &= ~NRESET;
 		
-		// Wait 50uS
+		// Wait
 		_delay_us(CMD_DELAY);
 		
 		// Repeat for next address
